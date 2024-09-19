@@ -38,3 +38,24 @@ void loop() {
   }
 
 }
+
+WiFiClientSecure client;
+  client.setInsecure(); // No verifiques el certificado SSL
+
+  HTTPClient http;
+  http.begin(client, URL);
+  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  int httpCode = http.POST(postData);
+  String payload = "";
+
+  if (httpCode > 0) {
+    if (httpCode == HTTP_CODE_OK) {
+      payload = http.getString();
+      Serial.println(payload);
+    } else {
+      Serial.printf("[HTTP] POST... code: %d\n", httpCode);
+    }
+  } else {
+    Serial.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
+  }

@@ -20,3 +20,21 @@ void setup() {
 
   connectWiFi();
 }
+
+void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    connectWiFi();
+  }
+
+  float temperature = readLM35();
+  float distance = readUltrasonic();
+
+  String postData = "temperature=" + String(temperature) + "&distance=" + String(distance);
+
+  if (distance >= 11) {
+    digitalWrite(buzzerPin, HIGH); // Activa el zumbador
+  } else {
+    digitalWrite(buzzerPin, LOW); // Desactiva el zumbador
+  }
+
+}

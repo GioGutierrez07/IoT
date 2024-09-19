@@ -79,3 +79,33 @@ float readLM35() {
 
   return temperatureC;
 }
+
+float readUltrasonic() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(3);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH);
+  float distance = duration * 0.034 / 2;
+
+  return distance;
+}
+
+void connectWiFi() {
+  WiFi.mode(WIFI_OFF);
+  delay(1000);
+  WiFi.mode(WIFI_STA);
+
+  WiFi.begin(ssid, password);
+  Serial.println("Conectando a WiFi");
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.print("Conectado a: "); Serial.println(ssid);
+  Serial.print("Dirección IP: "); Serial.println(WiFi.localIP());
+}

@@ -37,8 +37,6 @@ void loop() {
     digitalWrite(buzzerPin, LOW); // Desactiva el zumbador
   }
 
-}
-
 WiFiClientSecure client;
   client.setInsecure(); // No verifiques el certificado SSL
 
@@ -68,3 +66,16 @@ WiFiClientSecure client;
   Serial.print("payload: "); Serial.println(payload);
   Serial.println("--------------------------------------------------");
   delay(3000);
+
+}
+
+float readLM35() {
+  int rawValue = analogRead(lm35Pin);
+  Serial.print("Valor crudo LM35: "); Serial.println(rawValue);
+  float voltage = (rawValue / 4095.0) * 3.3; // Convertir valor a voltaje (3.3V es el voltaje máximo en ESP32)
+  Serial.print("Voltaje LM35: "); Serial.println(voltage);
+  float temperatureC = voltage * 10.0; // Convertir voltaje a temperatura en grados Celsius (10mV por grado C)
+  Serial.print("Temperatura LM35: "); Serial.println(temperatureC);
+
+  return temperatureC;
+}

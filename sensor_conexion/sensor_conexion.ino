@@ -59,3 +59,12 @@ WiFiClientSecure client;
   } else {
     Serial.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
   }
+
+   http.end(); // Cerrar conexión
+
+  Serial.print("URL: "); Serial.println(URL);
+  Serial.print("Data: "); Serial.println(postData);
+  Serial.print("httpCode: "); Serial.println(httpCode);
+  Serial.print("payload: "); Serial.println(payload);
+  Serial.println("--------------------------------------------------");
+  delay(3000);

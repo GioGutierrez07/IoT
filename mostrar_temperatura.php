@@ -108,3 +108,85 @@ include 'conexion.php';
     </div>
     </div>
     </div>
+
+<script src="funciones.js"></script>
+    <script>
+        var ctxTemperatura = document.getElementById('chartTemperatura').getContext('2d');
+        var ctxDistancia = document.getElementById('chartDistancia').getContext('2d');
+
+        var chartTemperatura = new Chart(ctxTemperatura, {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode(array_reverse($fechas)); ?>,
+                datasets: [{
+                    label: 'Temperatura (°C)',
+                    data: <?php echo json_encode(array_reverse($temperaturas)); ?>,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' 
+                        }
+                    }
+                }
+            }
+        });
+
+        var chartDistancia = new Chart(ctxDistancia, {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode(array_reverse($fechas)); ?>,
+                datasets: [{
+                    label: 'Distancia',
+                    data: <?php echo json_encode(array_reverse($distancias)); ?>,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' 
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -44,20 +44,8 @@ include 'conexion.php';
         } else {
             echo "<p>No se encontraron registros.</p>";
         }
- // Liberar el resultado de la consulta
- mysqli_free_result($result);
 
- // Cerrar la conexión a la base de datos
- mysqli_close($conn);
- ?>
-
- <button onclick="toggleHistorial()">Ver Historial</button>
-
- <div id="historial" style="display:none;">
-
-
-
-     <h1>Historial de Temperaturas y Distancias</h1>
+<h1>Historial de Temperaturas y Distancias</h1>
      <table>
          <thead>
              <tr>
@@ -102,4 +90,21 @@ include 'conexion.php';
              ?>
 
          </tbody>
-     </table>
+     </table>
+
+<div class="container">
+                <div class="chart-container">
+                    <h2>Historial de Temperatura</h2>
+                    <canvas id="chartTemperatura" width="400" height="200"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h2>Historial de Distancia</h2>
+                    <canvas id="chartDistancia" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+                    
+    </div>
+    </div>
+    </div>

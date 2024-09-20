@@ -44,3 +44,63 @@ include 'conexion.php';
         } else {
             echo "<p>No se encontraron registros.</p>";
         }
+ // Liberar el resultado de la consulta
+ mysqli_free_result($result);
+
+ // Cerrar la conexión a la base de datos
+ mysqli_close($conn);
+ ?>
+
+ <button onclick="toggleHistorial()">Ver Historial</button>
+
+ <div id="historial" style="display:none;">
+
+
+
+     <h1>Historial de Temperaturas y Distancias</h1>
+     <table>
+         <thead>
+             <tr>
+                 <th>Fecha</th>
+                 <th>Temperatura (°C)</th>
+                 <th>Distancia</th>
+             </tr>
+         </thead>
+         <tbody>
+             <?php
+             $fechas = array();
+             $temperaturas = array();
+             $distancias = array();
+             // Realizar consulta SQL para obtener el historial limitado a los primeros 10 registros
+             include 'conexion.php'; // Asegurarse de incluir la conexión nuevamente
+             $queryHistorial = "SELECT fecha_temperatura, temperatura, distancia FROM temperaturas ORDER BY fecha_temperatura DESC LIMIT 10";
+             $resultHistorial = mysqli_query($conn, $queryHistorial);
+
+             if (mysqli_num_rows($resultHistorial) > 0) {
+                 // Imprimir todos los registros
+                 while ($rowHistorial = mysqli_fetch_assoc($resultHistorial)) {
+                     echo "<tr>";
+                     echo "<td>" . $rowHistorial["fecha_temperatura"] . "</td>";
+                     echo "<td>" . $rowHistorial["temperatura"] . "</td>";
+                     echo "<td>" . $rowHistorial["distancia"] . "</td>";
+                     echo "</tr>";
+
+                     $fechas[] = $rowHistorial["fecha_temperatura"];
+                     $temperaturas[] = $rowHistorial["temperatura"];
+                     $distancias[] = $rowHistorial["distancia"];
+                 }
+             } else {
+                 echo "<tr><td colspan='3'>No se encontraron registros.</td></tr>";
+             }
+
+             // Liberar el resultado de la consulta
+             mysqli_free_result($resultHistorial);
+
+             // Cerrar la conexión a la base de datos
+             
+             mysqli_close($conn);
+             ?>
+
+
+         </tbody>
+     </table>

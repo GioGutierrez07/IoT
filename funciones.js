@@ -13,3 +13,16 @@ function toggleHistorial() {
         startAutoRefresh(); // Restart the auto-refresh
     }
 }
+
+function startAutoRefresh() {
+    if (autoRefresh) {
+        clearInterval(intervalId); // Ensure no multiple intervals are running
+        intervalId = setInterval(function() {
+            location.reload();
+        }, 3000);
+    }
+}
+
+window.onload = function() {
+    startAutoRefresh();
+};
